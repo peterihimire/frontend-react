@@ -1,0 +1,25 @@
+.big-img img {
+  /* height: 300px; */
+  width: 500px;
+}
+/* 
+.my-light-box {
+  width: 300px !important;
+  height: 500px;
+} */
+
+.detail-content {
+
+  padding: 2rem 5rem;
+  background-color: white;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  width: 700px;
+  margin:  0 auto;
+
+}
+.detail-section{
+  padding: 0 5rem;
+}
