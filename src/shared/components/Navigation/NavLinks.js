@@ -29,7 +29,7 @@ const NavLinks = (props) => {
         </li>
       )}
       {/* only displayed for admins */}
-      {auth.isLoggedIn && auth.admin && (
+      {auth.isLoggedIn && (
         <li>
           <NavLink to="/properties/new" exact>
             Add Properties

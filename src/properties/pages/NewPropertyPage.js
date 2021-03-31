@@ -235,6 +235,7 @@ class NewPropertyPage extends React.Component {
     console.log("amount:" + this.state.amount);
     console.log("completion:" + this.state.completion);
     console.log("description:" + this.state.description);
+    console.log("creator:" + this.context.userId);
     console.log("image:" + this.state.image);
 
     const formData = new FormData();
@@ -244,6 +245,7 @@ class NewPropertyPage extends React.Component {
     formData.append("amount", this.state.amount);
     formData.append("completion", this.state.completion);
     formData.append("description", this.state.description);
+    formData.append("creator", this.context.userId);
     formData.append("image", this.state.image, this.state.image.name);
 
     fetch(`http://localhost:4000/api/admin/property/`, {
@@ -401,7 +403,7 @@ class NewPropertyPage extends React.Component {
                 <div className="preview-img">
                   <img
                     src={this.state.preview}
-                    alt='preview'
+                    alt="preview"
                     onClick={() => {
                       this.setState({ image: "", preview: null });
                     }}
