@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import UserList from "../components/UserList";
 import pix from "../../assets/Lady-do-it.png";
 
@@ -11,6 +11,7 @@ const UsersPage = () => {
   //     image: pix,
   //   },
   // ];
+  const [users, setUsers] = React.useState();
 
   const getCurrentUser = () => {
     // setIsLoading(true);
@@ -29,9 +30,9 @@ const UsersPage = () => {
             }
             // setIsLoading(false);
             console.log(res);
-            console.log(res.user);
-            const loadedUser = res.user;
-            // setUser(loadedUser);
+            console.log(res.users);
+            const loadedUsers = res.users;
+            setUsers(loadedUsers);
           })
           .catch((err) => {
             console.log(err);
@@ -53,7 +54,12 @@ const UsersPage = () => {
     getCurrentUser();
   }, []);
 
-  return <UserList items='' />;
+  console.log(users);
+  return (
+    <>
+      {users && <UserList items={users} />}
+    </>
+  );
 };
 
 export default UsersPage;
