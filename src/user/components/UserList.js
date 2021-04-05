@@ -23,6 +23,7 @@ const UserList = (props) => {
           name={user.name}
           email={user.email}
           image={user.image}
+          properties={user.properties.length}
         />
       ))}
     </ul>
