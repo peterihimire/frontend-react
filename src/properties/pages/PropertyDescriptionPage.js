@@ -20,7 +20,7 @@ const PropertyDescriptionPage = (props) => {
   // MAKE REQUEST FOR ALL PROPERTIES
   const getSingleProperty = () => {
     setIsLoading(true);
-    fetch(`http://localhost:4000/api/properties/${propId.id}`, {
+    fetch(`http://localhost:4000/api/property/${propId.id}`, {
       // headers: {
       //   Authorization: "Bearer " + auth.token,
       // },

@@ -31,14 +31,23 @@ const NavLinks = (props) => {
       {/* only displayed for admins */}
       {auth.isLoggedIn && (
         <li>
-          <NavLink to="/properties/new" exact>
+          <NavLink to="/property/new" exact>
             Add Properties
           </NavLink>
         </li>
       )}
       {auth.isLoggedIn && (
         <li>
-          <NavLink to="/users">Users</NavLink>
+          <NavLink to={`/users/properties/${auth.userId}`} exact>
+            My Properties
+          </NavLink>
+        </li>
+      )}
+      {auth.isLoggedIn && (
+        <li>
+          <NavLink to="/users" exact>
+            Users
+          </NavLink>
         </li>
       )}
       {!auth.isLoggedIn && (

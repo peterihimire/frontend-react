@@ -19,6 +19,7 @@ import MainNavigation from "./shared/components/Navigation/MainNavigation";
 import LoginPage from "./user/pages/LoginPage";
 import SignupPage from "./user/pages/SignupPage";
 import Dashboard from "./user/pages/Dashboard";
+import UsersPropertiesPage from "./user/pages/UsersPropertiesPage";
 import { AuthContext } from "./shared/context/auth-context";
 import UpdateImagePage from "./properties/pages/UpdateImagePage";
 
@@ -102,7 +103,7 @@ function App() {
         <Route path="/properties" exact>
           <PropertiesPage />
         </Route>
-        <Route path="/properties/new">
+        <Route path="/property/new">
           <NewProperty />
         </Route>
         <Route
@@ -121,10 +122,13 @@ function App() {
           exact
           component={PropertyDescription}
         />
-        <Route path="/users">
+        <Route path="/users" exact>
           <UsersPage />
         </Route>
-        <Route path="/users/:userId">
+        <Route path="/users/properties/:userId" exact>
+          <UsersPropertiesPage />
+        </Route>
+        <Route path="/users/:userId" exact>
           <SingleUser />
         </Route>
         {/* <Route></Route> */}
