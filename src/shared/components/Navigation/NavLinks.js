@@ -43,7 +43,7 @@ const NavLinks = (props) => {
           </NavLink>
         </li>
       )}
-      {auth.isLoggedIn && (
+      {auth.admin && (
         <li>
           <NavLink to="/users" exact>
             Users
