@@ -42,7 +42,7 @@ class UpdatePropertiesPage extends React.Component {
     // GETTING THE PROPERTY ID VIA PAGE-URL-PARAMS
     let propertyId = this.props.match.params.propertyId;
     const fetchProperty = () => {
-      fetch(`http://localhost:4000/api/properties/${propertyId} `)
+      fetch(`http://localhost:4000/api/property/${propertyId} `)
         .then((response) => {
           response
             .json()
@@ -433,7 +433,7 @@ class UpdatePropertiesPage extends React.Component {
                   <div className="preview-img">
                     <img
                       src={this.state.preview}
-                      alt='preview'
+                      alt="preview"
                       // onClick={() => {
                       //   this.setState({ image: "", preview: null });
                       // }}

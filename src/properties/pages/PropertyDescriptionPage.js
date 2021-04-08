@@ -13,6 +13,7 @@ const PropertyDescriptionPage = (props) => {
   });
   const [loadedProperty, setLoadedProperty] = useState();
   const [isLoading, setIsLoading] = useState(false);
+  console.log(setPropId, isLoading)
   // const [error, setError] = useState();
 
   console.log(propId);
@@ -67,6 +68,8 @@ const PropertyDescriptionPage = (props) => {
     getSingleProperty();
   }, [propId.id]);
   console.log(loadedProperty);
+
+  
   return (
     <>
       {loadedProperty ? (

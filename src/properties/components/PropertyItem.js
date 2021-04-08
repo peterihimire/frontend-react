@@ -16,6 +16,7 @@ const PlaceItem = (props) => {
 
   const auth = useContext(AuthContext);
   console.log(auth);
+  console.log(auth.userId);
 
   const [showMap, setShowMap] = useState(false);
 
@@ -121,15 +122,16 @@ const PlaceItem = (props) => {
             {/* <Button inverse onClick={openMapHandler}>
               VIEW ON MAP
             </Button> */}
+
             <Button to={`/properties/detail/${props.id}`}>INFO</Button>
-            {auth.isLoggedIn && auth.admin && (
+            {auth.userId === props.creator || auth.admin ? (
               <Button to={`/properties/${props.id}`}>EDIT</Button>
-            )}
-            {auth.isLoggedIn && auth.admin && (
+            ) : null}
+            {auth.userId === props.creator || auth.admin ? (
               <Button danger onClick={showDeleteWarningHandler}>
                 DELETE
               </Button>
-            )}
+            ) : null}
           </div>
         </Card>
       </li>

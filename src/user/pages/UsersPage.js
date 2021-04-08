@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import UserList from "../components/UserList";
-import pix from "../../assets/Lady-do-it.png";
+// import pix from "../../assets/Lady-do-it.png";
 
 const UsersPage = () => {
   // const USERS = [

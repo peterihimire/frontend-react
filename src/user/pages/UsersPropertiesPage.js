@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useCallback } from "react";
 import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
 import ErrorModal from "../../shared/components/UIElements/ErrorModal";
 import { AuthContext } from "../../shared/context/auth-context";
@@ -35,9 +35,59 @@ const UsersPropertiesPage = (props) => {
     );
   };
 
-  // MAKE REQUEST FOR ALL PROPERTIES
-  const getProperties = () => {
-    setIsLoading(true);
+  // // MAKE REQUEST FOR ALL PROPERTIES
+  // const getProperties = () => {
+  //   setIsLoading(true);
+  //   fetch(`http://localhost:4000/api/admin/users/${auth.userId}`, {
+  //     headers: {
+  //       Authorization: "Bearer " + auth.token,
+  //     },
+  //   })
+  //     .then((response) => {
+  //       response
+  //         .json()
+  //         .then((res) => {
+  //           console.log(res);
+  //           if (!response.ok) {
+  //             throw new Error(res.msg);
+  //           }
+  //           setIsLoading(false);
+  //           console.log(res);
+  //           console.log(res.user.properties);
+  //           const loadedProperties = res.user.properties;
+  //           setLoadedProperties(loadedProperties);
+  //         })
+  //         .catch((err) => {
+  //           console.log(err);
+  //           console.log(typeof err);
+  //           setIsLoading(false);
+  //           setError(
+  //             err.message || "You are not Authorized to view this page!"
+  //           );
+  //         });
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //       setIsLoading(false);
+  //       setError(err.msg || "Error occured , please try again!");
+  //     });
+  // };
+
+  // useEffect(() => {
+  //   // // MEMORY LEAK ISSUES HERE
+  //   // getProperties();
+  //   // MEMORY LEAK ISSUES HERE
+  //   let isMounted = true;
+  //   if (isMounted) {
+  //     getProperties();
+  //   }
+  //   return () => {
+  //     isMounted = false;
+  //   };
+  // }, [getProperties]);
+
+  const getProperties = useCallback(() => {
+    // setIsLoading(true);
     fetch(`http://localhost:4000/api/admin/users/${auth.userId}`, {
       headers: {
         Authorization: "Bearer " + auth.token,
@@ -51,7 +101,7 @@ const UsersPropertiesPage = (props) => {
             if (!response.ok) {
               throw new Error(res.msg);
             }
-            setIsLoading(false);
+            // setIsLoading(false);
             console.log(res);
             console.log(res.user.properties);
             const loadedProperties = res.user.properties;
@@ -59,7 +109,7 @@ const UsersPropertiesPage = (props) => {
           })
           .catch((err) => {
             console.log(err);
-            console.log(typeof err);
+            // console.log(typeof err);
             setIsLoading(false);
             setError(
               err.message || "You are not Authorized to view this page!"
@@ -71,20 +121,15 @@ const UsersPropertiesPage = (props) => {
         setIsLoading(false);
         setError(err.msg || "Error occured , please try again!");
       });
-  };
+  }, [auth.token, auth.userId]);
 
   useEffect(() => {
-    // // MEMORY LEAK ISSUES HERE
-    // getProperties();
-    // MEMORY LEAK ISSUES HERE
-    let isMounted = true;
-    if (isMounted) {
-      getProperties();
+    //  THIS METHOD MAKES SURE THAT IF NO USER-ID THEN LOADING SPINNER ELSE THE METHOD WORKS, THE DEPENDENCY IS AUTH.USERID
+    if (!auth.token) {
+      // setIsLoading(true);
     }
-    return () => {
-      isMounted = false;
-    };
-  }, []);
+    getProperties();
+  }, [auth.token, getProperties]);
 
   return (
     <>

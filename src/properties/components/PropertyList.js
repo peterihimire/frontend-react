@@ -19,6 +19,7 @@ const PropertyList = (props) => {
   return (
     <ul className="place-list">
       {props.items.map((property) => {
+        // console.log(property.user.id);
         return (
           <PropertyItem
             key={property.id}
@@ -30,6 +31,7 @@ const PropertyList = (props) => {
             completion={property.completion}
             description={property.description}
             image={property.image}
+            creator={property.userId}
             onDelete={props.onDeleteProperty}
           />
         );
