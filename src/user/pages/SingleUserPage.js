@@ -34,6 +34,10 @@ const SingleUserPage = (props) => {
 
   const getProperties = useCallback(() => {
     setIsLoading(true);
+    // This code solved the userId undefined error
+    if (!userId || userId === "" || userId === undefined) {
+      return setIsLoading(true);
+    }
     fetch(`http://localhost:4000/api/admin/users/${userId}`, {
       headers: {
         Authorization: "Bearer " + auth.token,
@@ -71,7 +75,7 @@ const SingleUserPage = (props) => {
 
   useEffect(() => {
     //  THIS METHOD MAKES SURE THAT IF NO USER-ID THEN LOADING SPINNER ELSE THE METHOD WORKS, THE DEPENDENCY IS AUTH.USERID
-    if (!userId || userId === "" || userId === "undefined") {
+    if (!userId || userId === "" || userId === undefined) {
       setIsLoading(true);
     }
     getProperties();
