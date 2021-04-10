@@ -14,7 +14,6 @@ const SingleUserPage = (props) => {
   console.log(props);
   console.log(userId);
 
-
   // REMOVES THE ERROR MODAL
   const errorModalHandler = () => {
     setError("");
@@ -72,7 +71,7 @@ const SingleUserPage = (props) => {
 
   useEffect(() => {
     //  THIS METHOD MAKES SURE THAT IF NO USER-ID THEN LOADING SPINNER ELSE THE METHOD WORKS, THE DEPENDENCY IS AUTH.USERID
-    if (!userId) {
+    if (!userId || userId === "" || userId === "undefined") {
       setIsLoading(true);
     }
     getProperties();

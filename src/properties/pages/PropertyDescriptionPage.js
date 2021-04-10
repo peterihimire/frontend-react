@@ -1,10 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext, useCallback } from "react";
 // import { useContext } from "react";
 // import { Link } from "react-router-dom";
 // import { PropertyContext } from "../context";
+import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
+import ErrorModal from "../../shared/components/UIElements/ErrorModal";
+import { AuthContext } from "../../shared/context/auth-context";
 import "./PropertyDescriptionPage.css";
 
 const PropertyDescriptionPage = (props) => {
+  const auth = useContext(AuthContext);
+  console.log(auth);
+
   console.log(props);
   console.log(props.match.params.id);
 
@@ -13,18 +19,73 @@ const PropertyDescriptionPage = (props) => {
   });
   const [loadedProperty, setLoadedProperty] = useState();
   const [isLoading, setIsLoading] = useState(false);
-  console.log(setPropId, isLoading)
-  // const [error, setError] = useState();
+  console.log(setPropId, isLoading);
+  const [error, setError] = useState();
 
   console.log(propId);
 
+  // REMOVES THE ERROR MODAL
+  const errorModalHandler = () => {
+    setError("");
+  };
+
   // MAKE REQUEST FOR ALL PROPERTIES
-  const getSingleProperty = () => {
+  // const getSingleProperty = () => {
+  //   setIsLoading(true);
+  //   fetch(`http://localhost:4000/api/property/${propId.id}`, {
+  //     // headers: {
+  //     //   Authorization: "Bearer " + auth.token,
+  //     // },
+  //   })
+  //     .then((response) => {
+  //       response
+  //         .json()
+  //         .then((res) => {
+  //           console.log(res);
+  //           if (!response.ok) {
+  //             throw new Error(res.msg);
+  //           }
+  //           // setIsLoading(false);
+  //           console.log(res);
+  //           console.log(res.property);
+  //           const loadProperty = res.property;
+  //           setLoadedProperty(loadProperty);
+  //         })
+  //         .catch((err) => {
+  //           console.log(err);
+  //           console.log(typeof err);
+  //           // setIsLoading(false);
+  //           // setError(
+  //           //   err.message || "You are not Authorized to view this page!"
+  //           // );
+  //         });
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //       // setIsLoading(false);
+  //       // setError(err.msg || "Error occured , please try again!");
+  //     });
+  // };
+
+  // // useEffect(() => {
+  // //   getSingleProperty();
+  // // }, []);
+
+  // useEffect(() => {
+  //   if (!propId.id) {
+  //     console.log(propId.id);
+  //     // setIsLoading(true);
+  //   }
+  //   getSingleProperty();
+  // }, [propId.id]);
+  // console.log(loadedProperty);
+
+  const getProperties = useCallback(() => {
     setIsLoading(true);
     fetch(`http://localhost:4000/api/property/${propId.id}`, {
-      // headers: {
-      //   Authorization: "Bearer " + auth.token,
-      // },
+      headers: {
+        Authorization: "Bearer " + auth.token,
+      },
     })
       .then((response) => {
         response
@@ -34,44 +95,40 @@ const PropertyDescriptionPage = (props) => {
             if (!response.ok) {
               throw new Error(res.msg);
             }
-            // setIsLoading(false);
+            setIsLoading(false);
             console.log(res);
             console.log(res.property);
-            const loadProperty = res.property;
-            setLoadedProperty(loadProperty);
+            const loadedProperty = res.property;
+            setLoadedProperty(loadedProperty);
           })
           .catch((err) => {
             console.log(err);
-            console.log(typeof err);
-            // setIsLoading(false);
-            // setError(
-            //   err.message || "You are not Authorized to view this page!"
-            // );
+            // console.log(typeof err);
+            setIsLoading(false);
+            setError(
+              err.message || "You are not Authorized to view this page!"
+            );
           });
       })
       .catch((err) => {
         console.log(err);
-        // setIsLoading(false);
-        // setError(err.msg || "Error occured , please try again!");
+        setIsLoading(false);
+        setError(err.msg || "Error occured , please try again!");
       });
-  };
-
-  // useEffect(() => {
-  //   getSingleProperty();
-  // }, []);
+  }, [auth.token, propId.id]);
 
   useEffect(() => {
-    if (!propId.id) {
-      console.log(propId.id);
-      // setIsLoading(true);
+    //  THIS METHOD MAKES SURE THAT IF NO USER-ID THEN LOADING SPINNER ELSE THE METHOD WORKS, THE DEPENDENCY IS AUTH.USERID
+    if (!auth.token) {
+      setIsLoading(true);
     }
-    getSingleProperty();
-  }, [propId.id]);
-  console.log(loadedProperty);
+    getProperties();
+  }, [auth.token, getProperties]);
 
-  
   return (
     <>
+      <ErrorModal error={error} onClear={errorModalHandler} />
+      {isLoading && <LoadingSpinner asOverlay />}
       {loadedProperty ? (
         <section className="detail-section">
           <div className="detail-content ">
@@ -98,7 +155,9 @@ const PropertyDescriptionPage = (props) => {
               <h3>Amount</h3>
               <p className="amt">₦{loadedProperty.amount} Million</p>
               <h3>Completion</h3>
-              <p className="amt">{loadedProperty.completion}% payment completed </p>
+              <p className="amt">
+                {loadedProperty.completion}% payment completed{" "}
+              </p>
             </div>
           </div>
         </section>
