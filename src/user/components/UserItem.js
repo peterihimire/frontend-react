@@ -7,7 +7,7 @@ import "./UserItem.css";
 
 const UserItem = (props) => {
   return (
-    <Link to={`http://localhost:4000/api/admin/users/`}>
+    // <Link to={`http://localhost:4000/api/admin/users/`}>
       <li className="user-item">
         <Card className="user-item__content">
           <Link to={`users/${props.id}/`}>
@@ -23,7 +23,7 @@ const UserItem = (props) => {
           </Link>
         </Card>
       </li>
-    </Link>
+    // {/* </Link> */}
   );
 };
 

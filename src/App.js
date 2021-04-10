@@ -128,9 +128,8 @@ function App() {
         <Route path="/users/properties/:userId" exact>
           <UsersPropertiesPage />
         </Route>
-        <Route path="/users/:userId" exact>
-          <SingleUser />
-        </Route>
+        <Route path="/users/:userId" exact component={SingleUser} />
+
         {/* <Route></Route> */}
         <Redirect to="/profile" />
       </Switch>
