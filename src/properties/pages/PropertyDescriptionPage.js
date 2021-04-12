@@ -6,6 +6,7 @@ import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
 import ErrorModal from "../../shared/components/UIElements/ErrorModal";
 import { AuthContext } from "../../shared/context/auth-context";
 import "./PropertyDescriptionPage.css";
+import closeIcon from "../../assets/p-modal-close.svg";
 
 const PropertyDescriptionPage = (props) => {
   const auth = useContext(AuthContext);
@@ -14,6 +15,7 @@ const PropertyDescriptionPage = (props) => {
   console.log(props);
   console.log(props.match.params.id);
 
+  // This stores the property Id into propId state
   const [propId, setPropId] = React.useState({
     id: props.match.params.id,
   });
@@ -21,6 +23,11 @@ const PropertyDescriptionPage = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   console.log(setPropId, isLoading);
   const [error, setError] = useState();
+
+  // This is a method to handle the goback react-router-dom
+  const goBackHandler = () => {
+    props.history.goBack();
+  };
 
   console.log(propId);
 
@@ -133,9 +140,9 @@ const PropertyDescriptionPage = (props) => {
         <section className="detail-section">
           <div className="detail-content ">
             <div className="modal-close-div">
-              {/* <Link to="/co-ownership">
-              <img src={modalClose} alt="modal close" className="" />
-            </Link> */}
+              <button onClick={goBackHandler}>
+                <img src={closeIcon} alt="modal close" className="" />
+              </button>
             </div>
             <div className="my-lightbox">
               <div className="big-img">
