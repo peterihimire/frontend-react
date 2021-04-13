@@ -10,7 +10,7 @@ const Dashboard = () => {
   console.log(auth);
   const [user, setUser] = useState({});
   const [isLoading, setIsLoading] = useState(false);
-  console.log(isLoading)
+  console.log(isLoading);
   // const [error, setError] = useState();
 
   console.log(user);
@@ -61,7 +61,6 @@ const Dashboard = () => {
   //   getCurrentUser();
   // }, [auth.userId]);
 
-
   const getCurrentUser = useCallback(() => {
     setIsLoading(true);
     fetch(`http://localhost:4000/api/admin/users/${auth.userId}`, {
@@ -109,14 +108,19 @@ const Dashboard = () => {
 
   return (
     <div className="dashboard-div">
-      <div className='center'>
+      <div className="center">
         <h1>{user.name} This is your dashboard</h1>
       </div>
 
       <Card>
-        <h1>{user.name}</h1>
-        <h2>{user.email}</h2>
-        <h3>{user.id}</h3>
+        <div>
+          <h1>{user.name}</h1>
+          <h2>{user.email}</h2>
+          <h3>{user.id}</h3>
+        </div>
+        <div>
+          <img src={`http://localhost:4000/profile.png`} alt="prof-icon" />
+        </div>
       </Card>
     </div>
   );
