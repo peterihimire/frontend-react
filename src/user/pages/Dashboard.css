@@ -1,3 +1,10 @@
-.dashboard-div{
+.dashboard-div {
   padding: 10rem;
+}
+
+.dashboard-user-card {
+  display: flex;
+}
+.dashboard-user-text {
+  margin: 0 0 0 2rem;
 }

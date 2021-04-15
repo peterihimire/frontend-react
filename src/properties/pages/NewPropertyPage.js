@@ -248,7 +248,7 @@ class NewPropertyPage extends React.Component {
     formData.append("creator", this.context.userId);
     formData.append("image", this.state.image, this.state.image.name);
 
-    fetch(`http://localhost:4000/api/admin/property/`, {
+    fetch(`http://localhost:4000/api/admin/property`, {
       method: "POST",
       headers: {
         Authorization: "Bearer " + this.context.token,

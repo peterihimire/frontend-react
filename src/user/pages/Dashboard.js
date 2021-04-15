@@ -113,13 +113,15 @@ const Dashboard = () => {
       </div>
 
       <Card>
-        <div>
-          <h1>{user.name}</h1>
-          <h2>{user.email}</h2>
-          <h3>{user.id}</h3>
-        </div>
-        <div>
-          <img src={`http://localhost:4000/profile.png`} alt="prof-icon" />
+        <div className="dashboard-user-card">
+          <div>
+            <img src={`http://localhost:4000/${user.image}`} alt="prof-icon" />
+          </div>
+          <div className="dashboard-user-text">
+            <h1>{user.name}</h1>
+            <h2>{user.email}</h2>
+            <h3>{user.id}</h3>
+          </div>
         </div>
       </Card>
     </div>
