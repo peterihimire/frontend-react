@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext, useCallback } from "react";
 import Card from "../../shared/components/UIElements/Card";
 import { AuthContext } from "../../shared/context/auth-context";
+import { Link } from "react-router-dom";
 // import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
 // import ErrorModal from "../../shared/components/UIElements/ErrorModal";
 import "./Dashboard.css";
@@ -113,16 +114,21 @@ const Dashboard = () => {
       </div>
 
       <Card>
-        <div className="dashboard-user-card">
-          <div>
-            <img src={`http://localhost:4000/${user.image}`} alt="prof-icon" />
+        <Link to={`/update-user/${auth.userId}`}>
+          <div className="dashboard-user-card">
+            <div>
+              <img
+                src={`http://localhost:4000/${user.image}`}
+                alt="prof-icon"
+              />
+            </div>
+            <div className="dashboard-user-text">
+              <h1>{user.name}</h1>
+              <h2>{user.email}</h2>
+              <h3>{user.id}</h3>
+            </div>
           </div>
-          <div className="dashboard-user-text">
-            <h1>{user.name}</h1>
-            <h2>{user.email}</h2>
-            <h3>{user.id}</h3>
-          </div>
-        </div>
+        </Link>
       </Card>
     </div>
   );
