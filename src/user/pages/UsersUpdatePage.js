@@ -138,24 +138,9 @@ class UpdatePropertiesPage extends React.Component {
   }
 
   validateForm = () => {
-    const {
-      nameValid,
-      slugValid,
-      locationValid,
-      amountValid,
-      completionValid,
-      descriptionValid,
-      imageValid,
-    } = this.state;
+    const { nameValid, imageValid } = this.state;
     this.setState({
-      formValid:
-        nameValid &&
-        slugValid &&
-        locationValid &&
-        amountValid &&
-        completionValid &&
-        descriptionValid &&
-        imageValid,
+      formValid: nameValid && imageValid,
     });
   };
 
@@ -212,12 +197,11 @@ class UpdatePropertiesPage extends React.Component {
 
     const data = {
       name: this.state.name,
-  
     }; // Sending this to the backend
 
     const formData = new FormData();
     formData.append("name", this.state.name);
- 
+
     // formData.append("image", this.state.image);
 
     fetch(`http://localhost:4000/api/admin/users/${propertyId}`, {
@@ -334,7 +318,7 @@ class UpdatePropertiesPage extends React.Component {
                 type="submit"
                 disabled={!this.state.formValid}
               >
-                Update
+                Update Profile
               </button>
             </div>
           </form>
