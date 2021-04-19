@@ -23,6 +23,7 @@ import UsersPropertiesPage from "./user/pages/UsersPropertiesPage";
 import { AuthContext } from "./shared/context/auth-context";
 import UpdateImagePage from "./properties/pages/UpdateImagePage";
 import UsersUpdatePage from "./user/pages/UsersUpdatePage";
+import UpdateUserImage from './user/pages/UpdateUserImage';
 
 let logoutTimer;
 
@@ -131,6 +132,7 @@ function App() {
         </Route>
         <Route path="/users/:userId" exact component={SingleUser} />
         <Route path="/update-user/:userId" exact component={UsersUpdatePage} />
+        <Route path="/update-user-image/:userId" exact component={UpdateUserImage} />
 
         {/* <Route></Route> */}
         <Redirect to="/profile" />

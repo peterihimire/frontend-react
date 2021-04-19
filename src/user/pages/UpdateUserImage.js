@@ -1,6 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { AuthContext } from "../../shared/context/auth-context";
+
 function ValidationMessage(props) {
   if (!props.valid) {
     return <div className="error-msg">{props.message}</div>;
@@ -8,10 +7,7 @@ function ValidationMessage(props) {
   return null;
 }
 
-class UpdatePropertiesPage extends React.Component {
-  static contextType = AuthContext;
-  context = this.context;
-
+class UpdateUserImage extends React.Component {
   constructor(props) {
     super(props);
     this.fileInputRef = React.createRef();
@@ -20,19 +16,8 @@ class UpdatePropertiesPage extends React.Component {
     console.log(propertyId);
 
     this.state = {
-      user: {},
-      name: "",
-      nameValid: true,
-      slug: "",
-      slugValid: true,
-      location: "",
-      locationValid: true,
-      amount: "",
-      amountValid: true,
-      completion: "",
-      completionValid: true,
-      description: "",
-      descriptionValid: true,
+      property: {},
+
       image: "",
       imageValid: true,
       preview: "",
@@ -41,57 +26,11 @@ class UpdatePropertiesPage extends React.Component {
     };
   }
 
-  // const getCurrentUser = useCallback(() => {
-  //   setIsLoading(true);
-  //   fetch(`http://localhost:4000/api/admin/users/${auth.userId}`, {
-  //     headers: {
-  //       Authorization: "Bearer " + auth.token,
-  //     },
-  //   })
-  //     .then((response) => {
-  //       response
-  //         .json()
-  //         .then((res) => {
-  //           console.log(res);
-  //           if (!response.ok) {
-  //             throw new Error(res.msg);
-  //           }
-  //           // setIsLoading(false);
-  //           console.log(res);
-  //           console.log(res.user);
-  //           const loadedUser = res.user;
-  //           setUser(loadedUser);
-  //         })
-  //         .catch((err) => {
-  //           console.log(err);
-  //           // console.log(typeof err);
-  //           setIsLoading(false);
-  //           // setError(
-  //           //   err.message || "You are not Authorized to view this page!"
-  //           // );
-  //         });
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //       setIsLoading(false);
-  //       // setError(err.msg || "Error occured , please try again!");
-  //     });
-  // }, [auth.token, auth.userId]);
-
-  // useEffect(() => {
-  //   //  THIS METHOD MAKES SURE THAT IF NO USER-ID THEN LOADING SPINNER ELSE THE METHOD WORKS, THE DEPENDENCY IS AUTH.USERID
-  //   if (!auth.token) {
-  //     setIsLoading(true);
-  //   }
-  //   getCurrentUser();
-  // }, [auth.token, getCurrentUser]);
-
   componentDidMount() {
     // GETTING THE PROPERTY ID VIA PAGE-URL-PARAMS
-    // let propertyId = this.props.match.params.propertyId;
-    console.log(this.context);
+    let userId = this.props.match.params.userId;
     const fetchProperty = () => {
-      fetch(`http://localhost:4000/api/admin/users/${this.context.userId} `)
+      fetch(`http://localhost:4000/api/admin/users/${userId} `)
         .then((response) => {
           response
             .json()
@@ -104,20 +43,14 @@ class UpdatePropertiesPage extends React.Component {
               // this.setState({ loading: false });
               console.log(response);
               this.setState({
-                user: res.user,
-                name: res.user.name || "",
                 image: res.user.image || "",
                 preview: `http://localhost:4000/${res.user.image}`,
               });
-              let property = res.user;
+              let property = res.property;
               console.log(property);
-              // console.log(property.image);
-              // return property;
-              // this.props.history.push("/properties");
+              console.log(property.image);
             })
-            // .then((response) => {
-            //   console.log(response);
-            // })
+
             .catch((err) => {
               console.log(err);
               this.setState({
@@ -138,30 +71,10 @@ class UpdatePropertiesPage extends React.Component {
   }
 
   validateForm = () => {
-    const { nameValid, imageValid } = this.state;
+    const { imageValid } = this.state;
     this.setState({
-      formValid: nameValid && imageValid,
+      formValid: imageValid,
     });
-  };
-
-  // VALIDITY FOR NAME
-  updateName = (name) => {
-    this.setState({ name }, this.validateName);
-  };
-
-  validateName = () => {
-    console.log(this.state);
-    const { name } = this.state.property;
-    console.log(name);
-    let nameValid = true;
-    let errorMsg = { ...this.state.errorMsg };
-
-    if (name.length < 3) {
-      nameValid = false;
-      errorMsg.name = "Must be at least 3 characters long";
-    }
-
-    this.setState({ nameValid, errorMsg }, this.validateForm);
   };
 
   // VALIDITY FOR IMAGE
@@ -190,22 +103,20 @@ class UpdatePropertiesPage extends React.Component {
     this.setState({ imageValid, errorMsg }, this.validateForm);
   };
 
-  propertySubmitHandler = (e) => {
+  imageSubmitHandler = (e) => {
     e.preventDefault();
     // GETTING THE PROPERTY ID VIA PAGE-URL-PARAMS
     let propertyId = this.props.match.params.propertyId;
 
     const data = {
-      name: this.state.name,
+      image: this.state.image,
     }; // Sending this to the backend
 
     const formData = new FormData();
-    formData.append("name", this.state.name);
+    formData.append("image", this.state.image);
 
-    // formData.append("image", this.state.image);
-
-    fetch(`http://localhost:4000/api/admin/users/${propertyId}`, {
-      method: "PUT",
+    fetch(`http://localhost:4000/api/admin/properties/${propertyId}`, {
+      method: "PATCH",
       // headers: {
       //   "Content-Type": "application/json",
       // },
@@ -221,7 +132,7 @@ class UpdatePropertiesPage extends React.Component {
             }
             // this.setState({ loading: false });
             console.log(response);
-            this.props.history.push("/properties");
+            this.props.history.push("/properties/" + propertyId);
           })
           .catch((err) => {
             console.log(err);
@@ -246,48 +157,30 @@ class UpdatePropertiesPage extends React.Component {
     console.log(this.state.image);
     console.log(typeof this.state.image);
     console.log(typeof `http://localhost:4000/${this.state.image}`);
-    let userId = this.props.match.params.userId;
+    // let propertyId = this.props.match.params.propertyId;
     return (
       <div>
         <div className="App">
-          <h4>Updated User Form</h4>
+          <h4>Update Profile Image</h4>
 
-          <form action="#" id="js-form" onSubmit={this.propertySubmitHandler}>
+          <form action="#" id="js-form" onSubmit={this.imageSubmitHandler}>
             <div className="form-group">
-              <label htmlFor="name">Name</label>
-              <ValidationMessage
-                valid={this.state.nameValid}
-                message={this.state.errorMsg.name}
-              />
-              <input
-                type="text"
-                id="name"
-                name="name"
-                className="form-field"
-                value={this.state.name || ""}
-                onChange={(e) => this.updateName(e.target.value)}
-              />
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="image">image</label>
+              <label htmlFor="image">Profile Image</label>
 
               <ValidationMessage
                 valid={this.state.completionValid}
                 message={this.state.errorMsg.completion}
               />
               {this.state.preview ? (
-                <Link to={`/update-user-image/${userId}`} className="">
-                  <div className="preview-img">
-                    <img
-                      src={this.state.preview}
-                      alt="preview"
-                      // onClick={() => {
-                      //   this.setState({ image: "", preview: null });
-                      // }}
-                    />
-                  </div>
-                </Link>
+                <div className="preview-img">
+                  <img
+                    src={this.state.preview}
+                    alt="preview"
+                    onClick={() => {
+                      this.setState({ image: "", preview: null });
+                    }}
+                  />
+                </div>
               ) : (
                 <button
                   className="form-image-btn"
@@ -318,7 +211,7 @@ class UpdatePropertiesPage extends React.Component {
                 type="submit"
                 disabled={!this.state.formValid}
               >
-                Update Profile
+                Update Image
               </button>
             </div>
           </form>
@@ -328,4 +221,4 @@ class UpdatePropertiesPage extends React.Component {
   }
 }
 
-export default UpdatePropertiesPage;
+export default UpdateUserImage;
