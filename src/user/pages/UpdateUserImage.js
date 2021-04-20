@@ -106,7 +106,7 @@ class UpdateUserImage extends React.Component {
   imageSubmitHandler = (e) => {
     e.preventDefault();
     // GETTING THE PROPERTY ID VIA PAGE-URL-PARAMS
-    let propertyId = this.props.match.params.propertyId;
+    let userId = this.props.match.params.userId;
 
     const data = {
       image: this.state.image,
@@ -115,7 +115,7 @@ class UpdateUserImage extends React.Component {
     const formData = new FormData();
     formData.append("image", this.state.image);
 
-    fetch(`http://localhost:4000/api/admin/properties/${propertyId}`, {
+    fetch(`http://localhost:4000/api/users/${userId}`, {
       method: "PATCH",
       // headers: {
       //   "Content-Type": "application/json",
@@ -132,7 +132,7 @@ class UpdateUserImage extends React.Component {
             }
             // this.setState({ loading: false });
             console.log(response);
-            this.props.history.push("/properties/" + propertyId);
+            this.props.history.push("/update-user/" + userId);
           })
           .catch((err) => {
             console.log(err);

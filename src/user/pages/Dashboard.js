@@ -64,6 +64,9 @@ const Dashboard = () => {
 
   const getCurrentUser = useCallback(() => {
     setIsLoading(true);
+    if (!auth.userId || auth.userId === "" || auth.userId === undefined) {
+      return setIsLoading(true);
+    }
     fetch(`http://localhost:4000/api/admin/users/${auth.userId}`, {
       headers: {
         Authorization: "Bearer " + auth.token,
@@ -112,24 +115,25 @@ const Dashboard = () => {
       <div className="center">
         <h1>{user.name} This is your dashboard</h1>
       </div>
-
-      <Card>
-        <Link to={`/update-user/${auth.userId}`}>
-          <div className="dashboard-user-card">
-            <div>
-              <img
-                src={`http://localhost:4000/${user.image}`}
-                alt="prof-icon"
-              />
+      {user.image && (
+        <Card>
+          <Link to={`/update-user/${auth.userId}`}>
+            <div className="dashboard-user-card">
+              <div className="dashboard-img">
+                <img
+                  src={`http://localhost:4000/${user.image}`}
+                  alt="prof-icon"
+                />
+              </div>
+              <div className="dashboard-user-text">
+                <h1>{user.name}</h1>
+                <h2>{user.email}</h2>
+                <h3>{user.id}</h3>
+              </div>
             </div>
-            <div className="dashboard-user-text">
-              <h1>{user.name}</h1>
-              <h2>{user.email}</h2>
-              <h3>{user.id}</h3>
-            </div>
-          </div>
-        </Link>
-      </Card>
+          </Link>
+        </Card>
+      )}
     </div>
   );
 };

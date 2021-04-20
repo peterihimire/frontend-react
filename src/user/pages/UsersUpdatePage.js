@@ -22,17 +22,6 @@ class UpdatePropertiesPage extends React.Component {
     this.state = {
       user: {},
       name: "",
-      nameValid: true,
-      slug: "",
-      slugValid: true,
-      location: "",
-      locationValid: true,
-      amount: "",
-      amountValid: true,
-      completion: "",
-      completionValid: true,
-      description: "",
-      descriptionValid: true,
       image: "",
       imageValid: true,
       preview: "",
@@ -151,7 +140,7 @@ class UpdatePropertiesPage extends React.Component {
 
   validateName = () => {
     console.log(this.state);
-    const { name } = this.state.property;
+    const { name } = this.state.user;
     console.log(name);
     let nameValid = true;
     let errorMsg = { ...this.state.errorMsg };
@@ -193,7 +182,7 @@ class UpdatePropertiesPage extends React.Component {
   propertySubmitHandler = (e) => {
     e.preventDefault();
     // GETTING THE PROPERTY ID VIA PAGE-URL-PARAMS
-    let propertyId = this.props.match.params.propertyId;
+    let userId = this.props.match.params.userId;
 
     const data = {
       name: this.state.name,
@@ -204,7 +193,7 @@ class UpdatePropertiesPage extends React.Component {
 
     // formData.append("image", this.state.image);
 
-    fetch(`http://localhost:4000/api/admin/users/${propertyId}`, {
+    fetch(`http://localhost:4000/api/users/${userId}`, {
       method: "PUT",
       // headers: {
       //   "Content-Type": "application/json",
@@ -221,7 +210,7 @@ class UpdatePropertiesPage extends React.Component {
             }
             // this.setState({ loading: false });
             console.log(response);
-            this.props.history.push("/properties");
+            this.props.history.push("/profile");
           })
           .catch((err) => {
             console.log(err);
