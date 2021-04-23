@@ -44,7 +44,7 @@ class UpdateImagePage extends React.Component {
               console.log(response);
               this.setState({
                 image: res.property.image || "",
-                preview: `http://localhost:4000/${res.property.image}`,
+                preview: `${process.env.REACT_APP_ASSET_URL}/${res.property.image}`,
               });
               let property = res.property;
               console.log(property);

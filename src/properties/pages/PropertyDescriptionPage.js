@@ -147,7 +147,7 @@ const PropertyDescriptionPage = (props) => {
             <div className="my-lightbox">
               <div className="big-img">
                 <img
-                  src={`http://localhost:4000/${loadedProperty.image}`}
+                  src={`${process.env.REACT_APP_ASSET_URL}/${loadedProperty.image}`}
                   alt="main-big"
                 />
               </div>

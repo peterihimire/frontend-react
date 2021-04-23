@@ -121,7 +121,7 @@ const Dashboard = () => {
             <div className="dashboard-user-card">
               <div className="dashboard-img">
                 <img
-                  src={`http://localhost:4000/${user.image}`}
+                  src={`${process.env.REACT_APP_ASSET_URL}/${user.image}`}
                   alt="prof-icon"
                 />
               </div>
