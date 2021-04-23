@@ -30,7 +30,7 @@ class UpdateUserImage extends React.Component {
     // GETTING THE PROPERTY ID VIA PAGE-URL-PARAMS
     let userId = this.props.match.params.userId;
     const fetchProperty = () => {
-      fetch(`http://localhost:4000/api/admin/users/${userId} `)
+      fetch(`${process.env.REACT_APP_BACKEND_URL}/admin/users/${userId} `)
         .then((response) => {
           response
             .json()
@@ -115,7 +115,7 @@ class UpdateUserImage extends React.Component {
     const formData = new FormData();
     formData.append("image", this.state.image);
 
-    fetch(`http://localhost:4000/api/users/${userId}`, {
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/users/${userId}`, {
       method: "PATCH",
       // headers: {
       //   "Content-Type": "application/json",

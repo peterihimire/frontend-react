@@ -38,7 +38,7 @@ const SingleUserPage = (props) => {
     if (!userId || userId === "" || userId === undefined) {
       return setIsLoading(true);
     }
-    fetch(`http://localhost:4000/api/admin/users/${userId}`, {
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/admin/users/${userId}`, {
       headers: {
         Authorization: "Bearer " + auth.token,
       },

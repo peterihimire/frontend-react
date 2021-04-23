@@ -15,7 +15,7 @@ const UsersPage = () => {
 
   const getCurrentUser = () => {
     // setIsLoading(true);
-    fetch(`http://localhost:4000/api/admin/users/`, {
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/admin/users/`, {
       // headers: {
       //   Authorization: "Bearer " + auth.token,
       // },
@@ -55,11 +55,7 @@ const UsersPage = () => {
   }, []);
 
   console.log(users);
-  return (
-    <>
-      {users && <UserList items={users} />}
-    </>
-  );
+  return <>{users && <UserList items={users} />}</>;
 };
 
 export default UsersPage;

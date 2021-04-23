@@ -80,7 +80,7 @@ class UpdatePropertiesPage extends React.Component {
     // let propertyId = this.props.match.params.propertyId;
     console.log(this.context);
     const fetchProperty = () => {
-      fetch(`http://localhost:4000/api/admin/users/${this.context.userId} `)
+      fetch(`${process.env.REACT_APP_BACKEND_URL}/admin/users/${this.context.userId} `)
         .then((response) => {
           response
             .json()
@@ -193,7 +193,7 @@ class UpdatePropertiesPage extends React.Component {
 
     // formData.append("image", this.state.image);
 
-    fetch(`http://localhost:4000/api/users/${userId}`, {
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/users/${userId}`, {
       method: "PUT",
       // headers: {
       //   "Content-Type": "application/json",

@@ -67,7 +67,7 @@ const Dashboard = () => {
     if (!auth.userId || auth.userId === "" || auth.userId === undefined) {
       return setIsLoading(true);
     }
-    fetch(`http://localhost:4000/api/admin/users/${auth.userId}`, {
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/admin/users/${auth.userId}`, {
       headers: {
         Authorization: "Bearer " + auth.token,
       },

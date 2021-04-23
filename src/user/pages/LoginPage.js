@@ -112,7 +112,7 @@ class LoginPage extends React.Component {
     // console.log(data);
     this.setState({ loading: true });
     console.log(this.props);
-    fetch("http://localhost:4000/api/users/login", {
+    fetch(process.env.REACT_APP_BACKEND_URL + "/users/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

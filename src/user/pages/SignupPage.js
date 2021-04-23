@@ -154,7 +154,7 @@ class SignupPage extends React.Component {
     e.preventDefault();
 
     this.setState({ loading: true });
-    fetch("http://localhost:4000/api/users/signup", {
+    fetch(process.env.REACT_APP_BACKEND_URL + "/users/signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -303,7 +303,7 @@ class SignupPage extends React.Component {
                   name="admincode"
                   className="form-field"
                   value={this.state.adminCode}
-                  placeholder='admin code'
+                  placeholder="admin code"
                   // onChange={(e) => e.target.value}
                   onChange={(e) => this.updateAdminCode(e.target.value)}
                 />

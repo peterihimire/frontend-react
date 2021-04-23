@@ -89,7 +89,7 @@ const PropertyDescriptionPage = (props) => {
 
   const getProperties = useCallback(() => {
     setIsLoading(true);
-    fetch(`http://localhost:4000/api/property/${propId.id}`, {
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/property/${propId.id}`, {
       headers: {
         Authorization: "Bearer " + auth.token,
       },
