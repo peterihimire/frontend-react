@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback, useEffect, Suspense } from "react";
 import "./App.css";
 import {
   BrowserRouter as Router,
@@ -7,15 +7,14 @@ import {
   Switch,
 } from "react-router-dom";
 import HomePage from "./properties/pages/HomePage";
-import PropertiesPage from "./properties/pages/PropertiesPage";
-import UpdatePropertiesPage from "./properties/pages/UpdatePropertiesPage";
-// import UpdateImage from "./properties/pages/UpdateImagePage";
-import NewProperty from "./properties/pages/NewPropertyPage";
-import UsersPage from "./user/pages/UsersPage";
+// Commented imports below are not included from the start , now part of lazy loaded file
+// import PropertiesPage from "./properties/pages/PropertiesPage";
+// import UpdatePropertiesPage from "./properties/pages/UpdatePropertiesPage";
+// import NewProperty from "./properties/pages/NewPropertyPage";
+// import UsersPage from "./user/pages/UsersPage";
 import SingleUser from "./user/pages/SingleUserPage";
 import PropertyDescription from "./properties/pages/PropertyDescriptionPage";
 import MainNavigation from "./shared/components/Navigation/MainNavigation";
-// import Auth from "./user/pages/Auth";
 import LoginPage from "./user/pages/LoginPage";
 import SignupPage from "./user/pages/SignupPage";
 import Dashboard from "./user/pages/Dashboard";
@@ -23,7 +22,23 @@ import UsersPropertiesPage from "./user/pages/UsersPropertiesPage";
 import { AuthContext } from "./shared/context/auth-context";
 import UpdateImagePage from "./properties/pages/UpdateImagePage";
 import UsersUpdatePage from "./user/pages/UsersUpdatePage";
-import UpdateUserImage from './user/pages/UpdateUserImage';
+import UpdateUserImage from "./user/pages/UpdateUserImage";
+import LoadingSpinner from "./shared/components/UIElements/LoadingSpinner";
+// import ErrorModal from "../../shared/components/UIElements/ErrorModal";
+// import Auth from "./user/pages/Auth";
+// import UpdateImage from "./properties/pages/UpdateImagePage";
+
+// Lazy loaded pages below are from the above imports commented out
+const PropertiesPage = React.lazy(() =>
+  import("./properties/pages/PropertiesPage")
+);
+const UpdatePropertiesPage = React.lazy(() =>
+  import("./properties/pages/UpdatePropertiesPage")
+);
+const NewProperty = React.lazy(() =>
+  import("./properties/pages/NewPropertyPage")
+);
+const UsersPage = React.lazy(() => import("./user/pages/UsersPage"));
 
 let logoutTimer;
 
@@ -33,6 +48,7 @@ function App() {
   const [userId, setUserId] = useState(false);
   const [admin, setAdmin] = useState(false);
   const [tokenExpiration, setTokenExpiration] = useState();
+
 
   const login = useCallback((uid, token, admin, expirationDate) => {
     // setIsLoggedIn(true);
@@ -132,7 +148,11 @@ function App() {
         </Route>
         <Route path="/users/:userId" exact component={SingleUser} />
         <Route path="/update-user/:userId" exact component={UsersUpdatePage} />
-        <Route path="/update-user-image/:userId" exact component={UpdateUserImage} />
+        <Route
+          path="/update-user-image/:userId"
+          exact
+          component={UpdateUserImage}
+        />
 
         {/* <Route></Route> */}
         <Redirect to="/profile" />
@@ -164,7 +184,17 @@ function App() {
     >
       <Router>
         <MainNavigation />
-        <main>{routes}</main>
+        <main>
+          <Suspense
+            fallback={
+              <div className="center">
+                <LoadingSpinner />
+              </div>
+            }
+          >
+            {routes}
+          </Suspense>
+        </main>
       </Router>
     </AuthContext.Provider>
   );

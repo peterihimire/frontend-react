@@ -184,16 +184,16 @@ class SignupPage extends React.Component {
           this.setState({
             error: err.message || "Something went wrong , please try again...",
           });
-          this.setState({ loading: false });
+          // this.setState({ loading: false });
         });
+    })
+    .catch((err) => {
+      console.log(err);
+      this.setState({ loading: false });
+      this.setState({
+        error: err.message || "Something went wrong , please try again...",
+      });
     });
-    // .catch((err) => {
-    //   console.log(err);
-    //   this.setState({ loading: false });
-    //   this.setState({
-    //     error: err.message || "Something went wrong , please try again...",
-    //   });
-    // });
 
     // fetch("http://localhost:7000/api/users/signup", {
     //   method: "POST",
