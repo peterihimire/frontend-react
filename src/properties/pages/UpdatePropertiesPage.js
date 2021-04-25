@@ -63,7 +63,7 @@ class UpdatePropertiesPage extends React.Component {
                 completion: res.property.completion || "",
                 description: res.property.description || "",
                 image: res.property.image || "",
-                preview: `${process.env.REACT_APP_ASSET_URL}/${res.property.image}`,
+                preview: `${process.env.REACT_APP_ASSET_URL}${res.property.image}`,
               });
               let property = res.property;
               console.log(property);
@@ -512,7 +512,7 @@ class UpdatePropertiesPage extends React.Component {
                 type="submit"
                 disabled={!this.state.formValid}
               >
-                Add Property
+                Update Property
               </button>
             </div>
           </form>

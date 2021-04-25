@@ -96,7 +96,7 @@ class UpdatePropertiesPage extends React.Component {
                 user: res.user,
                 name: res.user.name || "",
                 image: res.user.image || "",
-                preview: `${process.env.REACT_APP_ASSET_URL}/${res.user.image}`,
+                preview: `${process.env.REACT_APP_ASSET_URL}${res.user.image}`,
               });
               let property = res.user;
               console.log(property);
@@ -234,7 +234,7 @@ class UpdatePropertiesPage extends React.Component {
     console.log(this.state);
     console.log(this.state.image);
     console.log(typeof this.state.image);
-    console.log(typeof `http://localhost:4000/${this.state.image}`);
+    // console.log(typeof `http://localhost:4000/${this.state.image}`);
     let userId = this.props.match.params.userId;
     return (
       <div>
