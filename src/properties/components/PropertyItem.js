@@ -5,6 +5,8 @@ import Button from "../../shared/components/FormElements/Button";
 import Modal from "../../shared/components/UIElements/Modal";
 // import Map from '../../shared/components/UIElements/Map';
 import { AuthContext } from "../../shared/context/auth-context";
+import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
+import ErrorModal from "../../shared/components/UIElements/ErrorModal";
 import "./PropertyItem.css";
 
 const PlaceItem = (props) => {
@@ -21,6 +23,9 @@ const PlaceItem = (props) => {
   const [showMap, setShowMap] = useState(false);
 
   const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState();
+  // console.log(isLoading);
 
   // const openMapHandler = () => setShowMap(true);
 
@@ -36,7 +41,7 @@ const PlaceItem = (props) => {
     setShowConfirmModal(false);
     console.log("Property Deleted...");
 
-    fetch(`http://localhost:4000/api/admin/properties/${props.id}`, {
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/${props.id}`, {
       method: "DELETE",
     })
       .then((response) => {
@@ -48,30 +53,36 @@ const PlaceItem = (props) => {
             if (!response.ok) {
               throw new Error(res.msg);
             }
-            // this.setState({ loading: false });
+
+            setIsLoading(false);
             console.log(response);
             props.onDelete(props.id);
             history.push("/properties");
           })
           .catch((err) => {
             console.log(err);
-            // this.setState({
-            //   error:
-            //     err.message || "Something went wrong , please try again...",
-            // });
-            // this.setState({ loading: false });
+            setIsLoading(false);
+            setError(
+              err.message || "You are not Authorized to view this page!"
+            );
           });
       })
       .catch((err) => {
         console.log(err);
-        // this.setState({
-        //   error: err.message || "Something went wrong , please try again...",
-        // });
+        setIsLoading(false);
+        setError(err.message || "You are not Authorized to view this page!");
       });
+  };
+
+  // REMOVES THE ERROR MODAL
+  const errorModalHandler = () => {
+    setError("");
   };
 
   return (
     <React.Fragment>
+      <ErrorModal error={error} onClear={errorModalHandler} />
+      {isLoading && <LoadingSpinner asOverlay />}
       <Modal
         show={showMap}
         onCancel={closeMapHandler}

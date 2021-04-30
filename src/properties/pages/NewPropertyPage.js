@@ -248,6 +248,7 @@ class NewPropertyPage extends React.Component {
     formData.append("creator", this.context.userId);
     formData.append("image", this.state.image, this.state.image.name);
 
+    this.setState({ loading: true });
     fetch(`${process.env.REACT_APP_BACKEND_URL}/admin/property`, {
       method: "POST",
       headers: {
@@ -263,7 +264,7 @@ class NewPropertyPage extends React.Component {
             if (!response.ok) {
               throw new Error(res.msg);
             }
-            // this.setState({ loading: false });
+            this.setState({ loading: false });
             console.log(response);
             console.log(this.props);
 
@@ -271,15 +272,16 @@ class NewPropertyPage extends React.Component {
           })
           .catch((err) => {
             console.log(err);
+            this.setState({ loading: false });
             this.setState({
               error:
                 err.message || "Something went wrong , please try again...",
             });
-            // this.setState({ loading: false });
           });
       })
       .catch((err) => {
         console.log(err);
+        this.setState({ loading: false });
         this.setState({
           error: err.message || "Something went wrong , please try again...",
         });

@@ -1,4 +1,6 @@
 import React from "react";
+import "../../properties/pages/PropertyForm.css";
+// import "./PropertyForm.css";
 
 function ValidationMessage(props) {
   if (!props.valid) {

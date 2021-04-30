@@ -3,6 +3,7 @@ import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
 import ErrorModal from "../../shared/components/UIElements/ErrorModal";
 import { AuthContext } from "../../shared/context/auth-context";
 import PropertyList from "../components/PropertyList";
+import "./PropertyForm.css";
 
 const PropertiesPage = (props) => {
   const auth = useContext(AuthContext);
