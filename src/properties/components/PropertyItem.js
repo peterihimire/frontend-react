@@ -41,7 +41,7 @@ const PlaceItem = (props) => {
     setShowConfirmModal(false);
     console.log("Property Deleted...");
 
-    fetch(`${process.env.REACT_APP_BACKEND_URL}/${props.id}`, {
+    fetch(`${process.env.REACT_APP_ADMIN_URL}/properties/${props.id}`, {
       method: "DELETE",
     })
       .then((response) => {
