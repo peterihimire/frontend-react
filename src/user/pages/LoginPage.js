@@ -145,20 +145,24 @@ class LoginPage extends React.Component {
           })
           .catch((err) => {
             console.log(err);
+            this.setState({ loading: false });
             this.setState({
               error:
                 err.message || "Something went wrong , please try again...",
             });
-            this.setState({ loading: false });
+          
           });
       })
       .catch((err) => {
         console.log(err);
+        this.setState({ loading: false });
         this.setState({
           error: err.message || "Something went wrong , please try again...",
         });
       });
   };
+
+  
 
   render() {
     return (

@@ -1,5 +1,8 @@
 import React from "react";
 import "../../properties/pages/PropertyForm.css";
+import { AuthContext } from "../../shared/context/auth-context";
+import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
+import ErrorModal from "../../shared/components/UIElements/ErrorModal";
 // import "./PropertyForm.css";
 
 function ValidationMessage(props) {
@@ -10,6 +13,10 @@ function ValidationMessage(props) {
 }
 
 class UpdateUserImage extends React.Component {
+
+  static contextType = AuthContext;
+  context = this.context;
+
   constructor(props) {
     super(props);
     this.fileInputRef = React.createRef();
@@ -25,13 +32,26 @@ class UpdateUserImage extends React.Component {
       preview: "",
       formValid: true,
       errorMsg: {},
+      loading: false,
+      error: null,
     };
   }
 
+  // TO REMOVE ERROR MODAL
+  errorModalHandler = () => {
+    this.setState({ error: null });
+  };
+
   componentDidMount() {
+    // GETTING THE CONTEXT API HERE
+    const context = this.context;
+    console.log(context);
+    console.log(context.login);
+
     // GETTING THE PROPERTY ID VIA PAGE-URL-PARAMS
     let userId = this.props.match.params.userId;
     const fetchProperty = () => {
+      this.setState({ loading: true });
       fetch(`${process.env.REACT_APP_BACKEND_URL}/admin/users/${userId} `)
         .then((response) => {
           response
@@ -42,7 +62,7 @@ class UpdateUserImage extends React.Component {
               if (!response.ok) {
                 throw new Error(res.msg);
               }
-              // this.setState({ loading: false });
+              this.setState({ loading: false });
               console.log(response);
               this.setState({
                 image: res.user.image || "",
@@ -55,11 +75,11 @@ class UpdateUserImage extends React.Component {
 
             .catch((err) => {
               console.log(err);
+              this.setState({ loading: false });
               this.setState({
                 error:
                   err.message || "Something went wrong , please try again...",
               });
-              // this.setState({ loading: false });
             });
         })
         .catch((err) => {
@@ -117,6 +137,7 @@ class UpdateUserImage extends React.Component {
     const formData = new FormData();
     formData.append("image", this.state.image);
 
+    this.setState({ loading: true });
     fetch(`${process.env.REACT_APP_BACKEND_URL}/users/${userId}`, {
       method: "PATCH",
       // headers: {
@@ -138,6 +159,7 @@ class UpdateUserImage extends React.Component {
           })
           .catch((err) => {
             console.log(err);
+            this.setState({ loading: false });
             this.setState({
               error:
                 err.message || "Something went wrong , please try again...",
@@ -147,6 +169,7 @@ class UpdateUserImage extends React.Component {
       })
       .catch((err) => {
         console.log(err);
+        this.setState({ loading: false });
         this.setState({
           error: err.message || "Something went wrong , please try again...",
         });
@@ -161,8 +184,10 @@ class UpdateUserImage extends React.Component {
     // console.log(typeof `http://localhost:4000/${this.state.image}`);
     // let propertyId = this.props.match.params.propertyId;
     return (
-      <div>
+      <>
+        <ErrorModal error={this.state.error} onClear={this.errorModalHandler} />
         <div className="App">
+          {this.state.loading && <LoadingSpinner asOverlay />}
           <h4>Update Profile Image</h4>
 
           <form action="#" id="js-form" onSubmit={this.imageSubmitHandler}>
@@ -218,7 +243,7 @@ class UpdateUserImage extends React.Component {
             </div>
           </form>
         </div>
-      </div>
+      </>
     );
   }
 }

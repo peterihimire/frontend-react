@@ -1,6 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../shared/context/auth-context";
+import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
+import ErrorModal from "../../shared/components/UIElements/ErrorModal";
+
 function ValidationMessage(props) {
   if (!props.valid) {
     return <div className="error-msg">{props.message}</div>;
@@ -27,6 +30,8 @@ class UpdatePropertiesPage extends React.Component {
       preview: "",
       formValid: true,
       errorMsg: {},
+      loading: false,
+      error: null,
     };
   }
 
@@ -80,6 +85,7 @@ class UpdatePropertiesPage extends React.Component {
     // let propertyId = this.props.match.params.propertyId;
     console.log(this.context);
     const fetchProperty = () => {
+      this.setState({ loading: true });
       fetch(
         `${process.env.REACT_APP_BACKEND_URL}/admin/users/${this.context.userId} `
       )
@@ -92,7 +98,7 @@ class UpdatePropertiesPage extends React.Component {
               if (!response.ok) {
                 throw new Error(res.msg);
               }
-              // this.setState({ loading: false });
+              this.setState({ loading: false });
               console.log(response);
               this.setState({
                 user: res.user,
@@ -111,6 +117,7 @@ class UpdatePropertiesPage extends React.Component {
             // })
             .catch((err) => {
               console.log(err);
+              this.setState({ loading: false });
               this.setState({
                 error:
                   err.message || "Something went wrong , please try again...",
@@ -120,6 +127,7 @@ class UpdatePropertiesPage extends React.Component {
         })
         .catch((err) => {
           console.log(err);
+          this.setState({ loading: false });
           this.setState({
             error: err.message || "Something went wrong , please try again...",
           });
@@ -195,6 +203,7 @@ class UpdatePropertiesPage extends React.Component {
 
     // formData.append("image", this.state.image);
 
+    this.setState({ loading: true });
     fetch(`${process.env.REACT_APP_BACKEND_URL}/users/${userId}`, {
       method: "PUT",
       // headers: {
@@ -210,12 +219,13 @@ class UpdatePropertiesPage extends React.Component {
             if (!response.ok) {
               throw new Error(res.msg);
             }
-            // this.setState({ loading: false });
+            this.setState({ loading: false });
             console.log(response);
             this.props.history.push("/profile");
           })
           .catch((err) => {
             console.log(err);
+            this.setState({ loading: false });
             this.setState({
               error:
                 err.message || "Something went wrong , please try again...",
@@ -225,6 +235,7 @@ class UpdatePropertiesPage extends React.Component {
       })
       .catch((err) => {
         console.log(err);
+        this.setState({ loading: false });
         this.setState({
           error: err.message || "Something went wrong , please try again...",
         });
@@ -239,8 +250,10 @@ class UpdatePropertiesPage extends React.Component {
     // console.log(typeof `http://localhost:4000/${this.state.image}`);
     let userId = this.props.match.params.userId;
     return (
-      <div>
+      <>
+        <ErrorModal error={this.state.error} onClear={this.errorModalHandler} />
         <div className="App">
+          {this.state.loading && <LoadingSpinner asOverlay />}
           <h4>Updated User Form</h4>
 
           <form action="#" id="js-form" onSubmit={this.propertySubmitHandler}>
@@ -314,7 +327,7 @@ class UpdatePropertiesPage extends React.Component {
             </div>
           </form>
         </div>
-      </div>
+      </>
     );
   }
 }
