@@ -43,7 +43,7 @@ class UpdatePropertiesPage extends React.Component {
     // GETTING THE PROPERTY ID VIA PAGE-URL-PARAMS
     let propertyId = this.props.match.params.propertyId;
     const fetchProperty = () => {
-      fetch(`${process.env.REACT_APP_BACKEND_URL}/property/${propertyId} `)
+      fetch(`${process.env.REACT_APP_ADMIN_URL}/properties/${propertyId} `)
         .then((response) => {
           response
             .json()
@@ -64,7 +64,7 @@ class UpdatePropertiesPage extends React.Component {
                 completion: res.property.completion || "",
                 description: res.property.description || "",
                 image: res.property.image || "",
-                preview: `${process.env.REACT_APP_ASSET_URL}${res.property.image}`,
+                preview: `${process.env.REACT_APP_ASSET_URL}/${res.property.image}`,
               });
               let property = res.property;
               console.log(property);
@@ -276,7 +276,7 @@ class UpdatePropertiesPage extends React.Component {
     formData.append("description", this.state.description);
     // formData.append("image", this.state.image);
 
-    fetch(`${process.env.REACT_APP_BACKEND_URL}/admin/properties/${propertyId}`, {
+    fetch(`${process.env.REACT_APP_ADMIN_URL}/properties/${propertyId}`, {
       method: "PUT",
       // headers: {
       //   "Content-Type": "application/json",

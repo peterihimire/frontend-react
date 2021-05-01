@@ -80,7 +80,9 @@ class UpdatePropertiesPage extends React.Component {
     // let propertyId = this.props.match.params.propertyId;
     console.log(this.context);
     const fetchProperty = () => {
-      fetch(`${process.env.REACT_APP_BACKEND_URL}/admin/users/${this.context.userId} `)
+      fetch(
+        `${process.env.REACT_APP_BACKEND_URL}/admin/users/${this.context.userId} `
+      )
         .then((response) => {
           response
             .json()
@@ -96,7 +98,7 @@ class UpdatePropertiesPage extends React.Component {
                 user: res.user,
                 name: res.user.name || "",
                 image: res.user.image || "",
-                preview: `${process.env.REACT_APP_ASSET_URL}${res.user.image}`,
+                preview: `${process.env.REACT_APP_ASSET_URL}/${res.user.image}`,
               });
               let property = res.user;
               console.log(property);

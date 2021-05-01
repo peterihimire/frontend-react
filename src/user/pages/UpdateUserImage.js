@@ -46,7 +46,7 @@ class UpdateUserImage extends React.Component {
               console.log(response);
               this.setState({
                 image: res.user.image || "",
-                preview: `${process.env.REACT_APP_ASSET_URL}${res.user.image}`,
+                preview: `${process.env.REACT_APP_ASSET_URL}/${res.user.image}`,
               });
               let property = res.property;
               console.log(property);
