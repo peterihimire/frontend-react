@@ -152,10 +152,49 @@ h4 {
   }
 } */
 
+:root {
+  --pri-color: #061f35;
+  --sec-color: #01b2a6;
+  --main-grey: #e5e5e5;
+  --dark-green: #049a01;
+  --light-green: #f0ffee;
+  --dark-grey: #494949;
+  --main-white: #fff;
+  --main-black: #222;
+  --dark-blue: #0d019a;
+  --light-blue: #eef8ff;
+  --main-spacing: 0.2rem;
+  --line-height: 1.4;
+  --medium-font: 5.5rem;
+  --main-shadow: 1px 4px 4px rgba(0, 0, 0, 0.04);
+
+  /* --font: trueno, sans-serif; */
+  --font-bold: trueno-bold, sans-serif;
+  --font-xbold: trueno-extra-bold, sans-serif;
+  --font-lite: trueno-lite, sans-serif;
+}
+
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap");
 
+
 * {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
+}
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--pri-color);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(6, 31, 53, 0.7);
 }
 
 html {
@@ -166,7 +205,67 @@ body {
   margin: 0;
   background: #4d4d4d;
 }
-
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-bold);
+  letter-spacing: -2px;
+}
+.pad0 {
+  padding: 0 !important;
+}
+.hidden {
+  display: none;
+}
+.rel {
+  position: relative;
+}
+.abs {
+  position: absolute;
+}
+.text-justify {
+  text-align: justify;
+}
+.full-width {
+  width: 100%;
+}
+.full-height {
+  height: 100%;
+}
+.hidden-xs {
+  display: block;
+}
+.visible-xs {
+  display: none;
+}
+.flex-div {
+  display: flex;
+}
+.mag-0 {
+  margin: 0 !important;
+}
+.mag-bottom-0 {
+  margin-bottom: 0 !important;
+}
+.mag-top-0 {
+  margin-top: 0 !important;
+}
+.fg-1 {
+  flex-grow: 1;
+}
+.flex-wrap {
+  flex-wrap: wrap;
+}
+.center-sm {
+  text-align: center;
+}
+.sec-color {
+  color: var(--sec-color);
+}
+.pri-color {
+  color: var(--pri-color);
+}
 .slide-in-left-enter {
   transform: translateX(-100%);
 }
@@ -193,4 +292,28 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+@media (min-width: 993px) {
+  .container {
+    width: 80% !important;
+  }
+}
+@media (max-width: 992px) {
+  .btn-full-width {
+    width: 100% !important;
+  }
+}
+@media (max-width: 600px) {
+  .hidden-xs {
+    display: none !important;
+  }
+  .visible-xs {
+    display: block !important;
+  }
+  .btn-full-width {
+    width: 100% !important;
+  }
+  .center-xs {
+    text-align: center;
+  }
 }
