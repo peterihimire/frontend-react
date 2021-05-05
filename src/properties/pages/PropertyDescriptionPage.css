@@ -1,6 +1,6 @@
 .big-img img {
   /* height: 300px; */
-  width: 500px;
+  width: 200px;
 }
 /* 
 .my-light-box {
@@ -10,16 +10,23 @@
 
 .detail-content {
 
-  padding: 2rem 5rem;
+  padding: 2rem ;
   background-color: white;
   align-items: center;
   display: flex;
   flex-direction: column;
   border-radius: 5px;
-  width: 700px;
-  margin:  0 auto;
+  /* width: 700px; */
+  /* margin:  0 auto; */
 
 }
-.detail-section{
-  padding: 0 5rem;
+.property-description{
+  padding: 6rem 2rem;
+}
+@media screen and (min-width: 768px) {
+
+  .property-description-container {
+    max-width: 1170px;
+    margin: 0 auto;
+  }
 }

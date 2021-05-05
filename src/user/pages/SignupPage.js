@@ -165,35 +165,37 @@ class SignupPage extends React.Component {
         password: this.state.password,
         admincode: this.state.adminCode,
       }),
-    }).then((response) => {
-      response
-        .json()
-        .then((res) => {
-          console.log(res);
-          if (!response.ok) {
-            throw new Error(res.msg);
-          }
-          this.setState({ loading: false });
-          console.log(response);
-          console.log(this.props);
-          this.props.history.push("/login"); //Directs to login page , after successful signup
-        })
-        .catch((err) => {
-          console.log(err);
-          this.setState({ loading: false });
-          this.setState({
-            error: err.message || "Something went wrong , please try again...",
-          });
-          // this.setState({ loading: false });
-        });
     })
-    .catch((err) => {
-      console.log(err);
-      this.setState({ loading: false });
-      this.setState({
-        error: err.message || "Something went wrong , please try again...",
+      .then((response) => {
+        response
+          .json()
+          .then((res) => {
+            console.log(res);
+            if (!response.ok) {
+              throw new Error(res.msg);
+            }
+            this.setState({ loading: false });
+            console.log(response);
+            console.log(this.props);
+            this.props.history.push("/login"); //Directs to login page , after successful signup
+          })
+          .catch((err) => {
+            console.log(err);
+            this.setState({ loading: false });
+            this.setState({
+              error:
+                err.message || "Something went wrong , please try again...",
+            });
+            // this.setState({ loading: false });
+          });
+      })
+      .catch((err) => {
+        console.log(err);
+        this.setState({ loading: false });
+        this.setState({
+          error: err.message || "Something went wrong , please try again...",
+        });
       });
-    });
 
     // fetch("http://localhost:7000/api/users/signup", {
     //   method: "POST",
@@ -222,103 +224,105 @@ class SignupPage extends React.Component {
     return (
       <>
         <ErrorModal error={this.state.error} onClear={this.errorModalHandler} />
-        <div className="App">
-          {this.state.loading && <LoadingSpinner asOverlay />}
-          <header>Form Validation</header>
-          <main role="main">
-            <form action="#" id="js-form" onSubmit={this.submitHandler}>
-              <div className="form-group">
-                <label htmlFor="name">Name</label>
-                <ValidationMessage
-                  valid={this.state.nameValid}
-                  message={this.state.errorMsg.name}
-                />
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  className="form-field"
-                  value={this.state.name}
-                  onChange={(e) => this.updateName(e.target.value)}
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="email">Email</label>
-                <ValidationMessage
-                  valid={this.state.emailValid}
-                  message={this.state.errorMsg.email}
-                />
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  className="form-field"
-                  value={this.state.email}
-                  onChange={(e) => this.updateEmail(e.target.value)}
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="password">Password</label>
-                <ValidationMessage
-                  valid={this.state.passwordValid}
-                  message={this.state.errorMsg.password}
-                />
-                <input
-                  type="password"
-                  id="password"
-                  name="password"
-                  className="form-field"
-                  value={this.state.password}
-                  onChange={(e) => this.updatePassword(e.target.value)}
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="password-confirmation">
-                  Password Confirmation
-                </label>
-                <ValidationMessage
-                  valid={this.state.passwordConfirmValid}
-                  message={this.state.errorMsg.passwordConfirm}
-                />
-                <input
-                  type="password"
-                  id="password-confirmation"
-                  name="password-confirmation"
-                  className="form-field"
-                  value={this.state.passwordConfirm}
-                  onChange={(e) => this.updatePasswordConfirm(e.target.value)}
-                />
-              </div>
-              <div className="form-group">
-                {/* <label htmlFor="password-confirmation">
+        <div className="signup">
+          <div className="signup-container">
+            {this.state.loading && <LoadingSpinner asOverlay />}
+            <header>Form Validation</header>
+            <main role="main">
+              <form action="#" id="js-form" onSubmit={this.submitHandler}>
+                <div className="form-group">
+                  <label htmlFor="name">Name</label>
+                  <ValidationMessage
+                    valid={this.state.nameValid}
+                    message={this.state.errorMsg.name}
+                  />
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    className="form-field"
+                    value={this.state.name}
+                    onChange={(e) => this.updateName(e.target.value)}
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="email">Email</label>
+                  <ValidationMessage
+                    valid={this.state.emailValid}
+                    message={this.state.errorMsg.email}
+                  />
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    className="form-field"
+                    value={this.state.email}
+                    onChange={(e) => this.updateEmail(e.target.value)}
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="password">Password</label>
+                  <ValidationMessage
+                    valid={this.state.passwordValid}
+                    message={this.state.errorMsg.password}
+                  />
+                  <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    className="form-field"
+                    value={this.state.password}
+                    onChange={(e) => this.updatePassword(e.target.value)}
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="password-confirmation">
+                    Password Confirmation
+                  </label>
+                  <ValidationMessage
+                    valid={this.state.passwordConfirmValid}
+                    message={this.state.errorMsg.passwordConfirm}
+                  />
+                  <input
+                    type="password"
+                    id="password-confirmation"
+                    name="password-confirmation"
+                    className="form-field"
+                    value={this.state.passwordConfirm}
+                    onChange={(e) => this.updatePasswordConfirm(e.target.value)}
+                  />
+                </div>
+                <div className="form-group">
+                  {/* <label htmlFor="password-confirmation">
                   Admin
                 </label> */}
-                <ValidationMessage
-                  valid={this.state.passwordConfirmValid}
-                  message={this.state.errorMsg.passwordConfirm}
-                />
-                <input
-                  type="password"
-                  id="admincode"
-                  name="admincode"
-                  className="form-field"
-                  value={this.state.adminCode}
-                  placeholder="admin code"
-                  // onChange={(e) => e.target.value}
-                  onChange={(e) => this.updateAdminCode(e.target.value)}
-                />
-              </div>
-              <div className="form-controls">
-                <button
-                  className="button"
-                  type="submit"
-                  disabled={!this.state.formValid}
-                >
-                  Sign Up
-                </button>
-              </div>
-            </form>
-          </main>
+                  <ValidationMessage
+                    valid={this.state.passwordConfirmValid}
+                    message={this.state.errorMsg.passwordConfirm}
+                  />
+                  <input
+                    type="password"
+                    id="admincode"
+                    name="admincode"
+                    className="form-field"
+                    value={this.state.adminCode}
+                    placeholder="admin code"
+                    // onChange={(e) => e.target.value}
+                    onChange={(e) => this.updateAdminCode(e.target.value)}
+                  />
+                </div>
+                <div className="form-controls">
+                  <button
+                    className="button"
+                    type="submit"
+                    disabled={!this.state.formValid}
+                  >
+                    Sign Up
+                  </button>
+                </div>
+              </form>
+            </main>
+          </div>
         </div>
       </>
     );

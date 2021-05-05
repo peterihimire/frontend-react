@@ -320,152 +320,152 @@ class UpdatePropertiesPage extends React.Component {
     console.log(typeof `http://localhost:4000/${this.state.image}`);
     let propertyId = this.props.match.params.propertyId;
     return (
-      <div>
-        <div className="App">
-          <h4>Updated Property Form</h4>
+      <>
+        <div className="update-property">
+          <div className="update-property-container">
+            <h4>Updated Property Form</h4>
+            <form action="#" id="js-form" onSubmit={this.propertySubmitHandler}>
+              <div className="form-group">
+                <label htmlFor="name">Name</label>
+                <ValidationMessage
+                  valid={this.state.nameValid}
+                  message={this.state.errorMsg.name}
+                />
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  className="form-field"
+                  value={this.state.name || ""}
+                  onChange={(e) => this.updateName(e.target.value)}
+                />
+              </div>
 
-          <form action="#" id="js-form" onSubmit={this.propertySubmitHandler}>
-            <div className="form-group">
-              <label htmlFor="name">Name</label>
-              <ValidationMessage
-                valid={this.state.nameValid}
-                message={this.state.errorMsg.name}
-              />
-              <input
-                type="text"
-                id="name"
-                name="name"
-                className="form-field"
-                value={this.state.name || ""}
-                onChange={(e) => this.updateName(e.target.value)}
-              />
-            </div>
+              <div className="form-group">
+                <label htmlFor="slug">slug</label>
+                <ValidationMessage
+                  valid={this.state.slugValid}
+                  message={this.state.errorMsg.slug}
+                />
+                <input
+                  type="text"
+                  id="slug"
+                  name="slug"
+                  className="form-field"
+                  value={this.state.slug || ""}
+                  onChange={(e) => this.updateSlug(e.target.value)}
+                />
+              </div>
 
-            <div className="form-group">
-              <label htmlFor="slug">slug</label>
-              <ValidationMessage
-                valid={this.state.slugValid}
-                message={this.state.errorMsg.slug}
-              />
-              <input
-                type="text"
-                id="slug"
-                name="slug"
-                className="form-field"
-                value={this.state.slug || ""}
-                onChange={(e) => this.updateSlug(e.target.value)}
-              />
-            </div>
+              <div className="form-group">
+                <label htmlFor="location">location</label>
+                <ValidationMessage
+                  valid={this.state.locationValid}
+                  message={this.state.errorMsg.location}
+                />
+                <input
+                  type="text"
+                  id="location"
+                  name="location"
+                  className="form-field"
+                  value={this.state.location || ""}
+                  onChange={(e) => this.updateLocation(e.target.value)}
+                />
+              </div>
 
-            <div className="form-group">
-              <label htmlFor="location">location</label>
-              <ValidationMessage
-                valid={this.state.locationValid}
-                message={this.state.errorMsg.location}
-              />
-              <input
-                type="text"
-                id="location"
-                name="location"
-                className="form-field"
-                value={this.state.location || ""}
-                onChange={(e) => this.updateLocation(e.target.value)}
-              />
-            </div>
+              <div className="form-group">
+                <label htmlFor="amount">amount</label>
+                <ValidationMessage
+                  valid={this.state.amountValid}
+                  message={this.state.errorMsg.amount}
+                />
+                <input
+                  type="text"
+                  id="amount"
+                  name="amount"
+                  className="form-field"
+                  value={this.state.amount || ""}
+                  onChange={(e) => this.updateAmount(e.target.value)}
+                />
+              </div>
 
-            <div className="form-group">
-              <label htmlFor="amount">amount</label>
-              <ValidationMessage
-                valid={this.state.amountValid}
-                message={this.state.errorMsg.amount}
-              />
-              <input
-                type="text"
-                id="amount"
-                name="amount"
-                className="form-field"
-                value={this.state.amount || ""}
-                onChange={(e) => this.updateAmount(e.target.value)}
-              />
-            </div>
+              <div className="form-group">
+                <label htmlFor="completion">completion</label>
+                <ValidationMessage
+                  valid={this.state.completionValid}
+                  message={this.state.errorMsg.completion}
+                />
+                <input
+                  type="text"
+                  id="completion"
+                  name="completion"
+                  className="form-field"
+                  value={this.state.completion || ""}
+                  onChange={(e) => this.updateCompletion(e.target.value)}
+                />
+              </div>
 
-            <div className="form-group">
-              <label htmlFor="completion">completion</label>
-              <ValidationMessage
-                valid={this.state.completionValid}
-                message={this.state.errorMsg.completion}
-              />
-              <input
-                type="text"
-                id="completion"
-                name="completion"
-                className="form-field"
-                value={this.state.completion || ""}
-                onChange={(e) => this.updateCompletion(e.target.value)}
-              />
-            </div>
+              <div className="form-group">
+                <label htmlFor="description">description</label>
+                <ValidationMessage
+                  valid={this.state.descriptionValid}
+                  message={this.state.errorMsg.description}
+                />
+                <textarea
+                  type="text"
+                  id="description"
+                  name="description"
+                  rows="8"
+                  className="form-field-2"
+                  value={this.state.description || ""}
+                  onChange={(e) => this.updateDescription(e.target.value)}
+                ></textarea>
+              </div>
 
-            <div className="form-group">
-              <label htmlFor="description">description</label>
-              <ValidationMessage
-                valid={this.state.descriptionValid}
-                message={this.state.errorMsg.description}
-              />
-              <textarea
-                type="text"
-                id="description"
-                name="description"
-                rows="8"
-                className="form-field-2"
-                value={this.state.description || ""}
-                onChange={(e) => this.updateDescription(e.target.value)}
-              ></textarea>
-            </div>
+              <div className="form-group">
+                <label htmlFor="image">image</label>
 
-            <div className="form-group">
-              <label htmlFor="image">image</label>
+                <ValidationMessage
+                  valid={this.state.completionValid}
+                  message={this.state.errorMsg.completion}
+                />
+                {this.state.preview ? (
+                  <Link to={`/update-image/${propertyId}`} className="">
+                    <div className="preview-img">
+                      <img
+                        src={this.state.preview}
+                        alt="preview"
+                        // onClick={() => {
+                        //   this.setState({ image: "", preview: null });
+                        // }}
+                      />
+                    </div>
+                  </Link>
+                ) : (
+                  <button
+                    className="form-image-btn"
+                    // the below function with click method launches the file input
+                    onClick={(e) => {
+                      e.preventDefault();
+                      this.fileInputRef.current.click();
+                    }}
+                  >
+                    add image
+                  </button>
+                )}
 
-              <ValidationMessage
-                valid={this.state.completionValid}
-                message={this.state.errorMsg.completion}
-              />
-              {this.state.preview ? (
-                <Link to={`/update-image/${propertyId}`} className="">
-                  <div className="preview-img">
-                    <img
-                      src={this.state.preview}
-                      alt="preview"
-                      // onClick={() => {
-                      //   this.setState({ image: "", preview: null });
-                      // }}
-                    />
-                  </div>
-                </Link>
-              ) : (
-                <button
-                  className="form-image-btn"
-                  // the below function with click method launches the file input
-                  onClick={(e) => {
-                    e.preventDefault();
-                    this.fileInputRef.current.click();
-                  }}
-                >
-                  add image
-                </button>
-              )}
+                <input
+                  type="file"
+                  id="image"
+                  name="image"
+                  className="form-file"
+                  accept=".jpg, .png, .jpeg"
+                  onChange={this.updateImage}
+                  ref={this.fileInputRef}
+                />
+              </div>
 
-              <input
-                type="file"
-                id="image"
-                name="image"
-                className="form-file"
-                accept=".jpg, .png, .jpeg"
-                onChange={this.updateImage}
-                ref={this.fileInputRef}
-              />
-            </div>
-
-            {/* <div className="form-group">
+              {/* <div className="form-group">
               <label htmlFor="image">image</label>
 
               <ValidationMessage
@@ -507,18 +507,19 @@ class UpdatePropertiesPage extends React.Component {
               />
             </div> */}
 
-            <div className="form-controls">
-              <button
-                className="button"
-                type="submit"
-                disabled={!this.state.formValid}
-              >
-                Update Property
-              </button>
-            </div>
-          </form>
+              <div className="form-controls">
+                <button
+                  className="button"
+                  type="submit"
+                  disabled={!this.state.formValid}
+                >
+                  Update Property
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
-      </div>
+      </>
     );
   }
 }

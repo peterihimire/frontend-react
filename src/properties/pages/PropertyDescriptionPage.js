@@ -137,34 +137,36 @@ const PropertyDescriptionPage = (props) => {
       <ErrorModal error={error} onClear={errorModalHandler} />
       {isLoading && <LoadingSpinner asOverlay />}
       {loadedProperty ? (
-        <section className="detail-section">
-          <div className="detail-content ">
-            <div className="modal-close-div">
-              <button onClick={goBackHandler}>
-                <img src={closeIcon} alt="modal close" className="" />
-              </button>
-            </div>
-            <div className="my-lightbox">
-              <div className="big-img">
-                <img
-                  src={`${process.env.REACT_APP_ASSET_URL}/${loadedProperty.image}`}
-                  alt="main-big"
-                />
+        <section className="property-description">
+          <div className="property-description-center">
+            <div className="detail-content ">
+              <div className="modal-close-div">
+                <button onClick={goBackHandler}>
+                  <img src={closeIcon} alt="modal close" className="" />
+                </button>
               </div>
-            </div>
-            <div className="detail-text">
-              <h3>Name</h3>
-              <h4>{loadedProperty.name}</h4>
-              <h3>Location</h3>
-              <p className="lc">{loadedProperty.location}</p>
-              <h3>Property Detail</h3>
-              <p>{loadedProperty.description}</p>
-              <h3>Amount</h3>
-              <p className="amt">₦{loadedProperty.amount} Million</p>
-              <h3>Completion</h3>
-              <p className="amt">
-                {loadedProperty.completion}% payment completed{" "}
-              </p>
+              <div className="my-lightbox">
+                <div className="big-img">
+                  <img
+                    src={`${process.env.REACT_APP_ASSET_URL}/${loadedProperty.image}`}
+                    alt="main-big"
+                  />
+                </div>
+              </div>
+              <div className="detail-text">
+                <h3>Name</h3>
+                <h4>{loadedProperty.name}</h4>
+                <h3>Location</h3>
+                <p className="lc">{loadedProperty.location}</p>
+                <h3>Property Detail</h3>
+                <p>{loadedProperty.description}</p>
+                <h3>Amount</h3>
+                <p className="amt">₦{loadedProperty.amount} Million</p>
+                <h3>Completion</h3>
+                <p className="amt">
+                  {loadedProperty.completion}% payment completed{" "}
+                </p>
+              </div>
             </div>
           </div>
         </section>

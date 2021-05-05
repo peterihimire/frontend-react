@@ -186,7 +186,7 @@ class UpdateUserImage extends React.Component {
     return (
       <>
         <ErrorModal error={this.state.error} onClear={this.errorModalHandler} />
-        <div className="App">
+        <div className="">
           {this.state.loading && <LoadingSpinner asOverlay />}
           <h4>Update Profile Image</h4>
 

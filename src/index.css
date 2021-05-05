@@ -293,7 +293,41 @@ h4 {
   justify-content: center;
   align-items: center;
 }
+
+
+/* LAPTOP */
 @media (min-width: 993px) {
+  .hidden-md {
+    display: none;
+    visibility: hidden;
+  }
+}
+/* iPAD */
+@media (max-width: 992px) {
+  .btn-full-width {
+    width: 100%;
+  }
+  /* .hidden-md {
+    display: none;
+  } */
+}
+/* iPHONE */
+@media (max-width: 600px) {
+  .hidden-xs {
+    display: none;
+  }
+  .visible-xs {
+    display: block;
+  }
+  .btn-full-width {
+    width: 100%;
+  }
+  .center-xs {
+    text-align: center;
+  }
+}
+
+/* @media (min-width: 993px) {
   .container {
     width: 80% !important;
   }
@@ -316,4 +350,4 @@ h4 {
   .center-xs {
     text-align: center;
   }
-}
+} */

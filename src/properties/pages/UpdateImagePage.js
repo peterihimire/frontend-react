@@ -165,7 +165,7 @@ class UpdateImagePage extends React.Component {
     // let propertyId = this.props.match.params.propertyId;
     return (
       <div>
-        <div className="App">
+        <div className="">
           <h4>Updated Image</h4>
 
           <form action="#" id="js-form" onSubmit={this.imageSubmitHandler}>

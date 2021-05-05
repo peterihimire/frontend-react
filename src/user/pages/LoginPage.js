@@ -3,6 +3,7 @@ import { AuthContext } from "../../shared/context/auth-context";
 // import "./Auth.css";
 import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
 import ErrorModal from "../../shared/components/UIElements/ErrorModal";
+import './LoginPage.css';
 
 function ValidationMessage(props) {
   if (!props.valid) {
@@ -150,7 +151,6 @@ class LoginPage extends React.Component {
               error:
                 err.message || "Something went wrong , please try again...",
             });
-          
           });
       })
       .catch((err) => {
@@ -162,59 +162,59 @@ class LoginPage extends React.Component {
       });
   };
 
-  
-
   render() {
     return (
       <>
         <ErrorModal error={this.state.error} onClear={this.errorModalHandler} />
-        <div className="App">
-          {this.state.loading && <LoadingSpinner asOverlay />}
-          <header>Login </header>
-          <main role="main">
-            <form action="#" id="js-form" onSubmit={this.submitHandler}>
-              <div className="form-group">
-                <label htmlFor="email">Email</label>
-                <ValidationMessage
-                  valid={this.state.emailValid}
-                  message={this.state.errorMsg.email}
-                />
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  className="form-field"
-                  value={this.state.email}
-                  onChange={(e) => this.updateEmail(e.target.value)}
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="password">Password</label>
-                <ValidationMessage
-                  valid={this.state.passwordValid}
-                  message={this.state.errorMsg.password}
-                />
-                <input
-                  type="password"
-                  id="password"
-                  name="password"
-                  className="form-field"
-                  value={this.state.password}
-                  onChange={(e) => this.updatePassword(e.target.value)}
-                />
-              </div>
+        <div className="login">
+          <div className="login-container">
+            {this.state.loading && <LoadingSpinner asOverlay />}
+            <header>Login </header>
+            <main role="main">
+              <form action="#" id="js-form" onSubmit={this.submitHandler}>
+                <div className="form-group">
+                  <label htmlFor="email">Email</label>
+                  <ValidationMessage
+                    valid={this.state.emailValid}
+                    message={this.state.errorMsg.email}
+                  />
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    className="form-field"
+                    value={this.state.email}
+                    onChange={(e) => this.updateEmail(e.target.value)}
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="password">Password</label>
+                  <ValidationMessage
+                    valid={this.state.passwordValid}
+                    message={this.state.errorMsg.password}
+                  />
+                  <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    className="form-field"
+                    value={this.state.password}
+                    onChange={(e) => this.updatePassword(e.target.value)}
+                  />
+                </div>
 
-              <div className="form-controls">
-                <button
-                  className="button"
-                  type="submit"
-                  disabled={!this.state.formValid}
-                >
-                  Login
-                </button>
-              </div>
-            </form>
-          </main>
+                <div className="form-controls">
+                  <button
+                    className="button"
+                    type="submit"
+                    disabled={!this.state.formValid}
+                  >
+                    Login
+                  </button>
+                </div>
+              </form>
+            </main>
+          </div>
         </div>
       </>
     );

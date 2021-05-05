@@ -1,0 +1,32 @@
+.login {
+  padding: 6rem 2rem;
+}
+.signup {
+  padding: 6rem 2rem;
+}
+.newpropertypage {
+  padding: 6rem 2rem;
+}
+.update-property {
+  padding: 6rem 2rem;
+}
+
+@media screen and (min-width: 768px) {
+  .login-container {
+    max-width: 1170px;
+    margin: 0 auto;
+  }
+  .signup-container {
+    max-width: 1170px;
+    margin: 0 auto;
+  }
+  .newpropertypage-container {
+    max-width: 1170px;
+    margin: 0 auto;
+  }
+
+  .update-property-container {
+    max-width: 1170px;
+    margin: 0 auto;
+  }
+}

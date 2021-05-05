@@ -14,7 +14,9 @@
 
 .form-image-btn {
   height: 200px !important;
-  width: 330px !important;
+  /* width: 330px !important; */
+  width: 200px !important;
+
   /* padding: 5rem !important; */
   /* border-radius: 50%; */
   border-radius: 5px;
@@ -25,7 +27,9 @@
 
 .preview-img img {
   height: 200px !important;
-  width: 330px !important;
+  /* width: 330px !important; */
+  width: 200px !important;
+
   border-radius: 5px;
   /* object-fit: cover; */
 }

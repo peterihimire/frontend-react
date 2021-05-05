@@ -166,6 +166,44 @@ function App() {
         </Route> */}
         <Route path="/login" component={LoginPage} />
         <Route path="/signup" component={SignupPage} />
+          <Route path="/" exact>
+          <HomePage />
+        </Route>
+        <Route path="/properties" exact>
+          <PropertiesPage />
+        </Route>
+        <Route path="/property/new">
+          <NewProperty />
+        </Route>
+        <Route
+          path="/properties/:propertyId"
+          exact
+          component={UpdatePropertiesPage}
+        />
+        <Route
+          path="/update-image/:propertyId"
+          exact
+          component={UpdateImagePage}
+        />
+        <Route path="/profile" exact component={Dashboard} />
+        <Route
+          path="/properties/detail/:id"
+          exact
+          component={PropertyDescription}
+        />
+        <Route path="/users" exact>
+          <UsersPage />
+        </Route>
+        <Route path="/users/properties/:userId" exact>
+          <UsersPropertiesPage />
+        </Route>
+        <Route path="/users/:userId" exact component={SingleUser} />
+        <Route path="/update-user/:userId" exact component={UsersUpdatePage} />
+        <Route
+          path="/update-user-image/:userId"
+          exact
+          component={UpdateUserImage}
+        />
         <Redirect to="/login" />
       </Switch>
     );

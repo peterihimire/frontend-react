@@ -252,7 +252,7 @@ class UpdatePropertiesPage extends React.Component {
     return (
       <>
         <ErrorModal error={this.state.error} onClear={this.errorModalHandler} />
-        <div className="App">
+        <div className="">
           {this.state.loading && <LoadingSpinner asOverlay />}
           <h4>Updated User Form</h4>
 
